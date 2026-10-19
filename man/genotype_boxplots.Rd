@@ -10,7 +10,8 @@ genotype_boxplots(
   assoc_query,
   output_file = NULL,
   by_allele = FALSE,
-  show_n = TRUE
+  show_n = TRUE,
+  point_alpha = 0.3
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ genotype_boxplots(
 \item{by_allele}{group the samples by allele (an heterozygous sample would be shown twice). Default: FALSE (i.e. grouped by genotype)}
 
 \item{show_n}{should the sample size be shown at the bottom? Default is TRUE.}
+
+\item{point_alpha}{transparency of the points. Default: 0.3. 0 means no point.}
 }
 \value{
 a ggplot object. Saves a file if output_file is provided.

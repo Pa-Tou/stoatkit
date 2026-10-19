@@ -37,23 +37,44 @@ summary_stoat <- function(assoc) {
   chisq_stat <- median(qchisq(1 - assoc[,pv_col, TRUE], df = 1), na.rm = TRUE)
   inf.lambda <- chisq_stat / qchisq(0.5, df = 1)
 
+  ## if eQTL analysis, each row is a pair variant-gene
+  test.label = 'Variant'
+  var.id = NULL
+  if(any(colnames(assoc) == 'GENE')) {
+    test.label = 'Variant-gene'
+    ## prepare variant ID to later count unique variants
+    var.id = paste(assoc$START_NODE, assoc$END_NODE)
+  }
+  
   ## compute some statistics on the pvalues
-  sum.df = tibble::tibble(Metric="Total variants", Value=nrow(assoc))
+  sum.df = tibble::tibble(Metric=paste(test.label, 'tested'), Value=nrow(assoc))
   if(any(is.na(assoc[,pv_col]))) {
     sum.df = rbind(
       sum.df,
-      tibble::tibble(Metric="Total variants with non-NA PV", Value=sum(!is.na(assoc[,pv_col]))))
+      tibble::tibble(Metric=paste(test.label, "tested with non-NA PV"),
+                     Value=sum(!is.na(assoc[,pv_col]))))
+  }
+  if(any(colnames(assoc) == 'GENE')) {
+    sum.df = rbind(
+      sum.df,
+      tibble::tibble(Metric="Variant tested", Value=length(unique(var.id))),
+      tibble::tibble(Metric="Gene tested", Value=length(unique(assoc$GENE)))
+    )
   }
   sum.df = rbind(
     sum.df,
-    tibble::tibble(Metric="Variant PV<0.01", Value=sum(assoc[,pv_col] < .01, na.rm=TRUE)),
-    tibble::tibble(Metric="Variant adjusted PV<0.01", Value=sum(assoc$P_BH < .01, na.rm=TRUE))
+    tibble::tibble(Metric=paste(test.label, "with PV<0.01"),
+                   Value=sum(assoc[,pv_col] < .01, na.rm=TRUE)),
+    tibble::tibble(Metric=paste(test.label, "with adjusted PV<0.01"),
+                   Value=sum(assoc$P_BH < .01, na.rm=TRUE))
   )
   if(any(colnames(assoc) == 'GENE')) {
     sum.df = rbind(
       sum.df,
-      tibble::tibble(Metric="Genes PV<0.01", Value=length(unique(assoc$GENE[which(assoc[,pv_col] < .01)]))),
-      tibble::tibble(Metric="Genes adjusted PV<0.01", Value=length(unique(assoc$GENE[which(assoc$P_BH < .01)])))
+      tibble::tibble(Metric="Variant with a PV<0.01", Value=length(unique(var.id[which(assoc[,pv_col] < .01)]))),
+      tibble::tibble(Metric="Variant with an adjusted PV<0.01", Value=length(unique(var.id[which(assoc$P_BH < .01)]))),
+      tibble::tibble(Metric="Gene with a PV<0.01", Value=length(unique(assoc$GENE[which(assoc[,pv_col] < .01)]))),
+      tibble::tibble(Metric="Gene with an adjusted PV<0.01", Value=length(unique(assoc$GENE[which(assoc$P_BH < .01)])))
     )
   }
   sum.df = rbind(

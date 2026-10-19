@@ -20,6 +20,7 @@
 #' @param output_file If not NULL, the name of the output image where to save the plot (image type guessed from the file name).
 #' @param by_allele group the samples by allele (an heterozygous sample would be shown twice). Default: FALSE (i.e. grouped by genotype)
 #' @param show_n should the sample size be shown at the bottom? Default is TRUE.
+#' @param point_alpha transparency of the points. Default: 0.3. 0 means no point.
 #'
 #' @return a ggplot object. Saves a file if output_file is provided.
 #' @name genotype_boxplots
@@ -40,7 +41,7 @@
 #' genotype_boxplots(gt_fn, pheno_fn, assoc.sig[1,], by_allele=TRUE)
 #' @export
 
-genotype_boxplots <- function(genotype_file, phenotype, assoc_query, output_file=NULL, by_allele=FALSE, show_n=TRUE) {
+genotype_boxplots <- function(genotype_file, phenotype, assoc_query, output_file=NULL, by_allele=FALSE, show_n=TRUE, point_alpha=.3) {
   
   ## input sanity checks
   if (!file.exists(genotype_file)) {
@@ -110,8 +111,10 @@ genotype_boxplots <- function(genotype_file, phenotype, assoc_query, output_file
   ## prepare allele paths for the caption
   alleles.path = unlist(strsplit(query.res$WALKS, ','))
   alleles.lens = unlist(strsplit(query.res$ALLELE_LENGTHS, ','))
-  alleles.path = paste(1:length(alleles.path) - 1, ': ', alleles.path,
-                       ' (', alleles.lens, ' bp)', sep='', collapse='\n')
+  alleles.used = sort(unique(df$allele))
+  alleles.path.cap = paste(alleles.used, ': ', alleles.path[alleles.used+1],
+                           ' (', alleles.lens[alleles.used+1], ' bp)',
+                           sep='', collapse='\n')
   
   if (by_allele) {
     ## one panel per allele, grouped by allele count
@@ -127,11 +130,11 @@ genotype_boxplots <- function(genotype_file, phenotype, assoc_query, output_file
 
     ## make graph
     ggp = ggplot(df, aes(x=.data$allele_count, y=.data$phenotype, group=.data$allele_count)) + 
-      geom_point(alpha = 0.3, position=position_jitter(.2)) +
+      geom_point(alpha = point_alpha, position=position_jitter(.2)) +
       geom_violin(fill = "cadetblue3", alpha = 0.3) +
       geom_boxplot(width = 0.2, outliers=FALSE, outlier.colour = "red",
                    alpha = 0.5, fill = "darkcyan") +
-      theme_bw() + labs(caption=alleles.path, title=ggp.title) +
+      theme_bw() + labs(caption=alleles.path.cap, title=ggp.title) +
       scale_x_continuous(breaks=0:10) +
       xlab('allele count') + 
       facet_grid(.~allele)
@@ -141,9 +144,9 @@ genotype_boxplots <- function(genotype_file, phenotype, assoc_query, output_file
       df.n = dplyr::summarize(dplyr::group_by(df, .data$allele, .data$allele_count),
                               allele_count_n=dplyr::n(),
                               .groups='drop')
-      df.n$phenotype = min(df$phenotype) - .05 * diff(range(df$phenotype))
+      df.n$phenotype = min(df$phenotype) - .1 * diff(range(df$phenotype))
       
-      ggp = ggp + geom_label(aes(label=.data$allele_count_n), data=df.n, vjust=1, size=3)
+      ggp = ggp + geom_label(aes(label=.data$allele_count_n), data=df.n, vjust=.5, alpha=.5, size=3)
     }
     
   } else {
@@ -157,20 +160,20 @@ genotype_boxplots <- function(genotype_file, phenotype, assoc_query, output_file
 
     ## make graph
     ggp = ggplot(df, aes(x=.data$allele, y=.data$phenotype, group=.data$allele)) + 
-      geom_point(alpha = 0.3, position=position_jitter(.05)) +
+      geom_point(alpha = point_alpha, position=position_jitter(.05)) +
       geom_violin(fill = "cadetblue3", alpha = 0.3) +
       geom_boxplot(width = 0.2, outliers=FALSE, outlier.colour = "red",
                    alpha = 0.5, fill = "darkcyan") +
-      theme_bw() + labs(caption=alleles.path, title=ggp.title)
+      theme_bw() + labs(caption=alleles.path.cap, title=ggp.title)
 
     if(show_n) {
       ## add sample size
       df.n = dplyr::summarize(dplyr::group_by(df, .data$allele),
                               allele_n=dplyr::n(),
                               .groups='drop')
-      df.n$phenotype = min(df$phenotype) - .05 * diff(range(df$phenotype))
+      df.n$phenotype = min(df$phenotype) - 1 * diff(range(df$phenotype))
       
-      ggp = ggp + geom_label(aes(label=.data$allele_n), data=df.n, vjust=1, size=3)
+      ggp = ggp + geom_label(aes(label=.data$allele_n), data=df.n, vjust=.5, size=3, alpha=.5)
     }
 
   }
