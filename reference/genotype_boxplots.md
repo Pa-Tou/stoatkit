@@ -21,7 +21,8 @@ genotype_boxplots(
   assoc_query,
   output_file = NULL,
   by_allele = FALSE,
-  show_n = TRUE
+  show_n = TRUE,
+  point_alpha = 0.3
 )
 ```
 
@@ -53,6 +54,10 @@ genotype_boxplots(
 - show_n:
 
   should the sample size be shown at the bottom? Default is TRUE.
+
+- point_alpha:
+
+  transparency of the points. Default: 0.3. 0 means no point.
 
 ## Value
 

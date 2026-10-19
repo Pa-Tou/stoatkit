@@ -30,12 +30,12 @@ assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', pack
 sum.l = summary_stoat(assoc_file)
 #> 
 #> 
-#> |Metric                   | Value|
-#> |:------------------------|-----:|
-#> |Total variants           |   680|
-#> |Variant PV<0.01          |    31|
-#> |Variant adjusted PV<0.01 |     2|
-#> |Genomic inflation factor |  1.15|
+#> |Metric                        | Value|
+#> |:-----------------------------|-----:|
+#> |Variant tested                |   680|
+#> |Variant with PV<0.01          |    31|
+#> |Variant with adjusted PV<0.01 |     2|
+#> |Genomic inflation factor      |  1.15|
 #> 
 #> 
 #> |Type | Total| Pv_BH_below_0.01|
@@ -47,12 +47,12 @@ sum.l = summary_stoat(assoc_file)
 sum.l 
 #> $all
 #> # A tibble: 4 × 2
-#>   Metric                    Value
-#>   <chr>                     <dbl>
-#> 1 Total variants           680   
-#> 2 Variant PV<0.01           31   
-#> 3 Variant adjusted PV<0.01   2   
-#> 4 Genomic inflation factor   1.15
+#>   Metric                         Value
+#>   <chr>                          <dbl>
+#> 1 Variant tested                680   
+#> 2 Variant with PV<0.01           31   
+#> 3 Variant with adjusted PV<0.01   2   
+#> 4 Genomic inflation factor        1.15
 #> 
 #> $per.type
 #> # A tibble: 2 × 3

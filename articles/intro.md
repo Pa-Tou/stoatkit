@@ -35,12 +35,12 @@ assoc = import_assoc(assoc_file)
 sum.l = summary_stoat(assoc)
 ```
 
-| Metric                    | Value |
-|:--------------------------|------:|
-| Total variants            |   680 |
-| Variant PV\<0.01          |    31 |
-| Variant adjusted PV\<0.01 |     2 |
-| Genomic inflation factor  |  1.15 |
+| Metric                         | Value |
+|:-------------------------------|------:|
+| Variant tested                 |   680 |
+| Variant with PV\<0.01          |    31 |
+| Variant with adjusted PV\<0.01 |     2 |
+| Genomic inflation factor       |  1.15 |
 
 | Type | Total | Pv_BH_below_0.01 |
 |:-----|------:|-----------------:|
