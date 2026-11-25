@@ -115,6 +115,7 @@ manhattan_plot <- function(assoc, p_threshold=1e-5, fdr_threshold=NULL,
     pos.bks = seq(-1, max(assoc$START_OFFSET)+1, length.out=50)
     pos.bks.vals = (pos.bks[-1] + pos.bks[-length(pos.bks)] ) / 2
     assoc$pos.a = pos.bks.vals[as.numeric(cut(assoc$START_OFFSET, pos.bks))]
+    
 
     if (show_top_points > 0) {
       ## force top associations as single points
@@ -125,7 +126,7 @@ manhattan_plot <- function(assoc, p_threshold=1e-5, fdr_threshold=NULL,
     assoc = dplyr::summarize(dplyr::group_by(assoc, .data$CHR, .data$pos.a, .data$logp.a),
                              logp=mean(.data$logp),
                                nvariants=dplyr::n(), 
-                             START_OFFSET=mean(.data$START_OFFSET),
+                             START_OFFSET=.data$START_OFFSET[which.min(P)],
                              .groups='drop')    
   }
 
@@ -140,7 +141,7 @@ manhattan_plot <- function(assoc, p_threshold=1e-5, fdr_threshold=NULL,
       ggp = ggplot(assoc, aes(x=.data$START_OFFSET/1e6, y=.data$logp,
                               size=.data$nvariants, shape=.data$nvariants>1)) +
         geom_point(alpha=.3) +
-        scale_size_continuous(range=c(1,5)) + guides(size='none') +
+        scale_size_continuous(range=c(1,2)) + guides(size='none') +
         scale_shape_manual(values=c(17, 16), name='variant', labels=c('single', 'cluster'))
     } else {
       ## show all points
@@ -164,7 +165,7 @@ manhattan_plot <- function(assoc, p_threshold=1e-5, fdr_threshold=NULL,
       ## if FDR thresholding, add a caption text with the thresholds
       if(!is.null(fdr_threshold)) {
         ggp = ggp + labs(caption=paste0('FDR threshold: ', fdr_threshold,
-                                        ', P-value threshold: ', p_threshold))
+                                        ', P-value threshold: ', signif(p_threshold, 4)))
       }
     }
 
