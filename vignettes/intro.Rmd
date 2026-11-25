@@ -1,5 +1,5 @@
 ---
-title: "STOAT Plot overview"
+title: "StoatKit overview"
 author: Jean Monlong
 date: "`r Sys.Date()`"
 output:
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(StoatPlot)
+library(StoatKit)
 library(ggplot2)
 library(dplyr)
 library(knitr)
@@ -29,7 +29,7 @@ library(knitr)
 
 ```{r import}
 ## path to association file (~stoat.assoc.pvalues.tsv.gz)
-test_data_dir <- system.file('extdata', package='StoatPlot')
+test_data_dir <- system.file('extdata', package='StoatKit')
 assoc_file = file.path(test_data_dir, 'stoat.quantitative.assoc.pvalues.tsv.gz')
 
 ## import association results

@@ -43,7 +43,7 @@ Generate a Manhattan plot showing the p-values across the pangenome.
 }
 \examples{
 # prepare the filename
-assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatPlot')
+assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatKit')
 
 # manhattan plot from the filename (will load the file internally)
 manhattan_plot(assoc_file, show_top_points=1000)

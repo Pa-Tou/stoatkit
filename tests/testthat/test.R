@@ -1,11 +1,11 @@
 # devtools::test()
 
 library(testthat)
-library(StoatPlot)
+library(StoatKit)
 
-test_that("StoatPlot main functions run without errors", {
+test_that("StoatKit main functions run without errors", {
   # Path to packaged test data
-  test_data_dir <- system.file("extdata", package = "StoatPlot")
+  test_data_dir <- system.file("extdata", package = "StoatKit")
   expect_true(dir.exists(test_data_dir))
 
   # Temporary output directory (safe for CI)

@@ -21,7 +21,7 @@ make_report <- function(assoc_file, output_html_file='stoat.summary.report.html'
   work.dir = getwd()
 
   ## read and edit report content
-  report.src = file.path(system.file("reports", package = "StoatPlot"), 'stoat.summary.report.Rmd')
+  report.src = file.path(system.file("reports", package = "StoatKit"), 'stoat.summary.report.Rmd')
   rmd.content = scan(report.src, '', quiet=TRUE, sep='\n', blank.lines.skip=FALSE)
   rmd.content = gsub('\\{\\{assoc_file\\}\\}', paste0('"', assoc_file, '"'), rmd.content)
 

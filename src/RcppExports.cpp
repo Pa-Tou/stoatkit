@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // assign_type_from_lengths
 CharacterVector assign_type_from_lengths(CharacterVector al_lens);
-RcppExport SEXP _StoatPlot_assign_type_from_lengths(SEXP al_lensSEXP) {
+RcppExport SEXP _StoatKit_assign_type_from_lengths(SEXP al_lensSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,11 +23,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_StoatPlot_assign_type_from_lengths", (DL_FUNC) &_StoatPlot_assign_type_from_lengths, 1},
+    {"_StoatKit_assign_type_from_lengths", (DL_FUNC) &_StoatKit_assign_type_from_lengths, 1},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_StoatPlot(DllInfo *dll) {
+RcppExport void R_init_StoatKit(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

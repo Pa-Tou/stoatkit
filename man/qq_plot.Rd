@@ -19,7 +19,7 @@ Generate QQ plot of the observed vs expected pvalues
 }
 \examples{
 # prepare the filename
-assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatPlot')
+assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatKit')
 
 # make the QQ-plot
 qq_plot(assoc_file)

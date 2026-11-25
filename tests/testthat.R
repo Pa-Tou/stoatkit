@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(StoatPlot)
+library(StoatKit)
 
-test_check("StoatPlot")
+test_check("StoatKit")

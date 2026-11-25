@@ -47,9 +47,9 @@ data.frame could be one row of the association data.frame loaded by
 }
 \examples{
 ## path to test files
-gt_fn = system.file('extdata/snarl_genotypes.sorted.tsv.gz', package='StoatPlot')
-pheno_fn = system.file('extdata/phenotype.quantitative.tsv', package='StoatPlot')
-assoc_fn = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatPlot')
+gt_fn = system.file('extdata/snarl_genotypes.sorted.tsv.gz', package='StoatKit')
+pheno_fn = system.file('extdata/phenotype.quantitative.tsv', package='StoatKit')
+assoc_fn = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatKit')
 
 ## get variants with PV<1e-5
 assoc = import_assoc(assoc_fn)

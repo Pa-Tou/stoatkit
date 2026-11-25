@@ -8,6 +8,6 @@
 #' @author Jean Monlong
 #' @keywords internal
 assign_type_from_lengths <- function(al_lens) {
-    .Call(`_StoatPlot_assign_type_from_lengths`, al_lens)
+    .Call(`_StoatKit_assign_type_from_lengths`, al_lens)
 }
 
