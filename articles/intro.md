@@ -1,8 +1,8 @@
-# STOAT Plot overview
+# StoatKit overview
 
 ``` r
 
-library(StoatPlot)
+library(StoatKit)
 library(ggplot2)
 library(dplyr)
 #> 
@@ -21,7 +21,7 @@ library(knitr)
 ``` r
 
 ## path to association file (~stoat.assoc.pvalues.tsv.gz)
-test_data_dir <- system.file('extdata', package='StoatPlot')
+test_data_dir <- system.file('extdata', package='StoatKit')
 assoc_file = file.path(test_data_dir, 'stoat.quantitative.assoc.pvalues.tsv.gz')
 
 ## import association results

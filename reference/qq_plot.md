@@ -28,7 +28,7 @@ a ggplot object. Saves a file too if output_file is provided.
 
 ``` r
 # prepare the filename
-assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatPlot')
+assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatKit')
 
 # make the QQ-plot
 qq_plot(assoc_file)

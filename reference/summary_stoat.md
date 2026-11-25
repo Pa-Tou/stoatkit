@@ -24,7 +24,7 @@ values
 
 ``` r
 # prepare the filename
-assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatPlot')
+assoc_file = system.file('extdata/stoat.quantitative.assoc.pvalues.tsv.gz', package='StoatKit')
 
 # print a summary
 sum.l = summary_stoat(assoc_file)

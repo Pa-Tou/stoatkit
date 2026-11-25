@@ -2,7 +2,7 @@
 
 ``` r
 
-library(StoatPlot)
+library(StoatKit)
 library(dplyr)
 #> 
 #> Attaching package: 'dplyr'
@@ -27,7 +27,7 @@ We use the small test data from the package.
 
 ``` r
 
-test_data_dir <- system.file('extdata', package='StoatPlot')
+test_data_dir <- system.file('extdata', package='StoatKit')
 gt_fn = file.path(test_data_dir, 'snarl_genotypes.sorted.tsv.gz')
 pheno_fn = file.path(test_data_dir, 'phenotype.quantitative.tsv')
 ```
